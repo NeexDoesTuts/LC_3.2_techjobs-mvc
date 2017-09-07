@@ -35,16 +35,17 @@ public class SearchController {
         // call for appropriate JobData method
         // send results back to view to display
 
-        ArrayList<HashMap<String, String>> searchedJobs;
+        ArrayList<HashMap<String, String>> jobs;
 
-        if (searchTerm.equals("all") || searchTerm.equals("")) {
-            searchedJobs = JobData.findByValue(searchTerm);
+        if (searchType.equals("all") || searchType.equals("")) {
+            jobs = JobData.findByValue(searchTerm);
         } else {
-            searchedJobs = JobData.findByColumnAndValue(searchType, searchTerm);
+            jobs = JobData.findByColumnAndValue(searchType, searchTerm);
         }
 
         model.addAttribute("columns", ListController.columnChoices);
-        model.addAttribute("searchedJobs", searchedJobs);
+        model.addAttribute("jobs", jobs);
+        model.addAttribute("jobsCount", jobs.size());
         model.addAttribute("searchTypeChosen", "You searched within: " + searchType);
         model.addAttribute("title", "The Job Hunt Roller coaster");
         return "search";
