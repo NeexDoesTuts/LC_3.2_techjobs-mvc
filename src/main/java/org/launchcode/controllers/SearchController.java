@@ -20,8 +20,17 @@ public class SearchController {
         return "search";
     }
 
+    // add to avoid broken path like in demo, with no parameters
+    @RequestMapping(value = "/results")
+    public String results(Model model) {
+        model.addAttribute("columns", ListController.columnChoices);
+        model.addAttribute("title", "You have not searched for anything yet");
+        return "search";
+    }
+
+    // renamed it because overloading search when results handles search/results seems strange
     @RequestMapping(value = "/results", method = RequestMethod.GET, params = {"searchType", "searchTerm"})
-    public String search(Model model, @RequestParam String searchTerm, @RequestParam String searchType) {
+    public String results(Model model, @RequestParam String searchTerm, @RequestParam String searchType) {
         // grab parameters in params
         // call for appropriate JobData method
         // send results back to view to display
@@ -40,21 +49,4 @@ public class SearchController {
         model.addAttribute("title", "The Job Hunt Roller coaster");
         return "search";
     }
-
-
-    // TODO: #1 - Create handler to process search request and display results
-
 }
-
-// https://stackoverflow.com/questions/30380498/overload-controller-method-in-java-spring
-//
-//    @RequestMapping(method = RequestMethod.GET, params = {"id", "query"})
-//    public A getA(@RequestParam int id, @RequestParam String query) {
-//    ...
-//    }
-//
-//
-//    @RequestMapping(method = RequestMethod.GET, params = {"id"})
-//    public A getA(@RequestParam int id) {
-//    ...
-//    }
