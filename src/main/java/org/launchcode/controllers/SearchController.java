@@ -20,7 +20,7 @@ public class SearchController {
         return "search";
     }
 
-    // add to avoid broken path like in demo, with no parameters
+    // add to avoid broken path like in demo, with no parameters or other than the two required
     @RequestMapping(value = "/results")
     public String results(Model model) {
         model.addAttribute("columns", ListController.columnChoices);
@@ -37,14 +37,14 @@ public class SearchController {
 
         ArrayList<HashMap<String, String>> searchedJobs;
 
-        if (searchTerm.equals("all")) {
+        if (searchTerm.equals("all") || searchTerm.equals("")) {
             searchedJobs = JobData.findByValue(searchTerm);
         } else {
             searchedJobs = JobData.findByColumnAndValue(searchType, searchTerm);
         }
 
         model.addAttribute("columns", ListController.columnChoices);
-        model.addAttribute("jobs", searchedJobs);
+        model.addAttribute("searchedJobs", searchedJobs);
         model.addAttribute("searchTypeChosen", "You searched within: " + searchType);
         model.addAttribute("title", "The Job Hunt Roller coaster");
         return "search";

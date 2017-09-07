@@ -38,9 +38,28 @@
     </form>
 
     <hr />
-    <h3 th:text="${searchTypeChosen}"></h3>
+    <h3 th:text="${searchTypeChosen} + ' - found: ' + ${searchedJobs.size()}" ></h3>
+
     <!-- TODO #2 - Loop over jobs map to display all job fields -->
     <!-- implement results here, seems they are used in the same html -->
+
+    <table th:each="job : ${searchedJobs}" class="job-listing">
+        <tbody>
+            <tr th:each="jobDetail : ${job}">
+                <td th:text="${#strings.capitalizeWords(jobDetail.key)}"></td>
+                <td th:text="${jobDetail.value}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!--create a loop to display each job passed in from the controller. -->
+    <!--You should put each job in its own table, with one job field per row.-->
+
+    <!--Add the CSS class "job-listing" to each of the tables to get some nice styling, -->
+
+
+
+
 
 </div>
 
