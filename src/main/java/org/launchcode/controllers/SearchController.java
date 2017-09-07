@@ -22,13 +22,22 @@ public class SearchController {
 
     @RequestMapping(value = "/results", method = RequestMethod.GET, params = {"searchType", "searchTerm"})
     public String search(Model model, @RequestParam String searchTerm, @RequestParam String searchType) {
-        // grab parameters
-        // call for appropriate ListController method
+        // grab parameters in params
+        // call for appropriate JobData method
         // send results back to view to display
 
+        ArrayList<HashMap<String, String>> searchedJobs;
 
+        if (searchTerm.equals("all")) {
+            searchedJobs = JobData.findByValue(searchTerm);
+        } else {
+            searchedJobs = JobData.findByColumnAndValue(searchType, searchTerm);
+        }
 
         model.addAttribute("columns", ListController.columnChoices);
+        model.addAttribute("jobs", searchedJobs);
+        model.addAttribute("searchTypeChosen", "You searched within: " + searchType);
+        model.addAttribute("title", "The Job Hunt Roller coaster");
         return "search";
     }
 
