@@ -48,7 +48,7 @@
         <div th:if="${jobsCount}">
             <h3 th:text="${searchTypeChosen} + ' - found: ' + ${jobsCount}" ></h3>
         </div>
-
+<!-- add sth when no jobs found -->
         <table th:each="job : ${jobs}" class="job-listing">
             <tbody>
                 <tr th:each="jobDetail : ${job}">
