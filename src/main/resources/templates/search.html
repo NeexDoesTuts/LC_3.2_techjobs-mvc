@@ -48,6 +48,7 @@
         <div th:if="${jobsCount}">
             <h3 th:text="${searchTypeChosen} + ' - found: ' + ${jobsCount}" ></h3>
         </div>
+        <h3 th:if="${jobsCount == 0}">No jobs found</h3>
 <!-- add sth when no jobs found -->
         <table th:each="job : ${jobs}" class="job-listing">
             <tbody>
@@ -58,6 +59,8 @@
             </tbody>
         </table>
     </div>
+
+
 
     <!--create a loop to display each job passed in from the controller. -->
     <!--You should put each job in its own table, with one job field per row.-->
